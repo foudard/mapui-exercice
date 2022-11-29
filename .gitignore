@@ -1,0 +1,17 @@
+node_modules/
+bower_components/
+.sass-cache/
+.idea
+.tmp
+.tests/
+/files
+/logs
+/typedoc
+/tests/reports/
+.DS_Store
+dist
+.eslintcache
+coverage
+.vscode
+.env
+.angular
