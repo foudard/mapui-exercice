@@ -4,6 +4,8 @@ Pour te faire gagner du temps, on a généré :
 - une application Angular dans le dossier [client](client/README.md)
 - un serveur NestJS dans le dossier [server](server/README.md)
 
+Il faut utiliser nodejs 16 et npm 8, pour ça tu dois installer [nvm](https://github.com/nvm-sh/nvm) puis faire `nvm use` dans le terminal.
+
 Pour lancer une base de données MongoDB, on te recommande Docker :
 ```console
 $ docker run --rm -it -p 27017:27017 mongo
