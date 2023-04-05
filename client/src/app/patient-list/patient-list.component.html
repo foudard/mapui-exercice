@@ -1,0 +1,13 @@
+<div class="flex w-screen justify-center">
+  <div class="w-3/4">
+    <app-table
+      [columns]="columns"
+      [items]="patients"
+      actionLabel="Add patient"
+      (add)="addPatient()"
+      (edit)="editPatient($event)"
+      (remove)="removePatient($event)"
+      (details)="patientDetails($event)">
+    </app-table>
+  </div>
+</div>

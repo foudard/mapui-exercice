@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  mapui-mongo:
+    container_name: mapui-mongo
+    image: mongo:6.0.3
+    restart: unless-stopped
+    networks:
+      - mapui
+    volumes:
+      - $PWD/db:/data/db
+
+  mapui-front:
+    container_name: mapui-front
+    image: mapui-front
+    restart: unless-stopped
+    networks:
+      - mapui
+    ports:
+      - 80:8080
+
+  mapui-back:
+    container_name: mapui-back
+    image: mapui-back
+    restart: unless-stopped
+    depends_on:
+      - mapui-mongo
+    networks:
+      - mapui
+    environment:
+      - PORT=8080
+      - DATABASE_HOST=mongodb://mapui-mongo
+      - DATABASE_NAME=mapui
+
+networks:
+  mapui:
+   name: mapui

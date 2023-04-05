@@ -1,0 +1,19 @@
+<div class="px-8">
+  <h1>Patient {{patient?.firstName}} {{patient?.lastName}}</h1>
+  <p>Age: {{patient?.age}} years old</p>
+  <p>Gender: {{patient?.gender === 'M' ? 'Man' : (patient?.gender === 'W' ? 'Woman' : 'Not specified')}}</p>
+  <hr class="my-4" />
+  <h2>Treatments</h2>
+  <div class="flex w-screen justify-center">
+    <app-table
+      class="w-3/4"
+      [columns]="treatmentsColumns"
+      [items]="patient?.treatments || []"
+      [canSeeDetails]="false"
+      [canEdit]="false"
+      actionLabel="Add treatment"
+      (add)="addTreatment()"
+      (remove)="removeTreatment($event)">
+    </app-table>
+  </div>
+</div>

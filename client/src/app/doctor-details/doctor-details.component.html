@@ -1,0 +1,32 @@
+<div class="px-8">
+  <h1>Doctor {{doctor?.firstName}} {{doctor?.lastName}}</h1>
+  <p>Speciality: {{doctor?.speciality}}</p>
+  <hr class="my-4" />
+  <h2>Prescribed treatments</h2>
+  <div class="flex w-screen justify-center mb-12">
+    <app-table
+      class="w-3/4"
+      [columns]="treatmentsColumns"
+      [items]="treatments"
+      [canAdd]="false"
+      [canDelete]="false"
+      [canSeeDetails]="false"
+      [canEdit]="false">
+    </app-table>
+  </div>
+  <hr class="my-4" />
+  <h2>Patients</h2>
+  <div class="flex w-screen justify-center">
+    <div class="w-3/4">
+      <app-table
+        class="w-3/4"
+        [columns]="patientsColumns"
+        [items]="patients"
+        [canAdd]="false"
+        [canDelete]="false"
+        [canEdit]="false"
+        (details)="patientDetails($event)">
+      </app-table>
+    </div>
+  </div>
+</div>

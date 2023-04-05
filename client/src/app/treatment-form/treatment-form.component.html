@@ -1,0 +1,43 @@
+<div class="px-8">
+  <form class="flex flex-col" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <h1 *ngIf="treatmentId">Treatment {{treatment?.name}} ({{treatment?.code}})</h1>
+    <h1 *ngIf="!treatmentId">Adding new treatment</h1>
+
+    <mat-form-field class="w-96">
+      <mat-label>Name</mat-label>
+      <input matInput name="name" required [(ngModel)]="treatmentModel.name">
+      <mat-error>Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-96">
+      <mat-label>Code</mat-label>
+      <input matInput name="code" required [(ngModel)]="treatmentModel.code">
+      <mat-error>Code is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-96">
+      <mat-label>Doctor</mat-label>
+      <mat-select name="doctor" required [(ngModel)]="treatmentModel.doctor">
+        <mat-option value="" [ngStyle]="{display: 'none'}"></mat-option>
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor._id">{{doctor.firstName}} {{doctor.lastName}}</mat-option>
+      </mat-select>
+      <mat-error>Doctor is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-96" appearance="fill" [formGroup]="dateRange">
+      <mat-label>Treatment date</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [min]="today" required>
+        <input matStartDate placeholder="Start date" formControlName="start">
+        <input matEndDate placeholder="End date" formControlName="end">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error>Treatment date is required</mat-error>
+    </mat-form-field>
+
+    <div class="mt-8 flex w-full justify-center">
+      <button class="w-96 mr-8" mat-raised-button color="primary" type="submit">Validate</button>
+      <button class="w-96 ml-8" mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

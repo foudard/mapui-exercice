@@ -1,0 +1,38 @@
+<div class="px-8">
+  <form class="flex flex-col" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <h1 *ngIf="patientId">Patient {{patient?.firstName}} {{patient?.lastName}}</h1>
+    <h1 *ngIf="!patientId">Adding new patient</h1>
+
+    <mat-form-field class="w-96">
+      <mat-label>Fisrt name</mat-label>
+      <input matInput name="firstName" required [(ngModel)]="patientModel.firstName">
+      <mat-error>First name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-96">
+      <mat-label>Last name</mat-label>
+      <input matInput name="lastName" required [(ngModel)]="patientModel.lastName">
+      <mat-error>Last name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-96">
+      <mat-label>Gender</mat-label>
+      <mat-select name="gender" [(ngModel)]="patientModel.gender">
+        <mat-option value="">Not specified</mat-option>
+        <mat-option value="M">Man</mat-option>
+        <mat-option value="W">Woman</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-96">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1" max="150" name="age" required [(ngModel)]="patientModel.age">
+      <mat-error>Age is required</mat-error>
+    </mat-form-field>
+
+    <div class="mt-8 flex w-full justify-center">
+      <button class="w-96 mr-8" mat-raised-button color="primary" type="submit">Validate</button>
+      <button class="w-96 ml-8" mat-raised-button type="button" (click)="goBack()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+  mapui-mongo:
+    container_name: mapui-mongo
+    image: mongo:6.0.3
+    restart: unless-stopped
+    networks:
+      - mapui
+    volumes:
+      - $PWD/db:/data/db
+
+  mapui-front:
+    container_name: mapui-front
+    image: node:16-alpine
+    restart: unless-stopped
+    networks:
+      - mapui
+    entrypoint: npm
+    command: start
+    working_dir: /app
+    volumes:
+      - $PWD/client:/app
+
+  mapui-back:
+    container_name: mapui-back
+    image: node:16-alpine
+    restart: unless-stopped
+    depends_on:
+      - mapui-mongo
+    networks:
+      - mapui
+    environment:
+      - PORT=8080
+      - DATABASE_HOST=mongodb://mapui-mongo
+      - DATABASE_NAME=mapui
+    entrypoint: npm
+    command: run start:dev
+    working_dir: /app
+    volumes:
+      - $PWD/server:/app
+
+  mapui-proxy:
+    container_name: mapui-proxy
+    image: nginx:1.23.4-alpine
+    restart: unless-stopped
+    depends_on:
+      - mapui-back
+      - mapui-front
+    networks:
+      - mapui
+    volumes:
+      - $PWD/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+networks:
+  mapui:
+   name: mapui

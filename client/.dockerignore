@@ -1,0 +1,5 @@
+*
+!src/
+!nginx.conf
+!*.json
+!*.js

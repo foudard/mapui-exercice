@@ -24,3 +24,32 @@ En bonus si tu as le temps, tu peux rajouter un docker-compose.yml pour lancer l
 ├── docker-compose.yml - En bonus ?
 └── package.json       - Dépendances npm à la racine pour eslint
 ```
+
+## Installation
+
+```sh
+npm ci
+docker-compose up -d
+```
+
+Aller sur le navigateur :
+
+__http://localhost:80__
+
+## Production
+
+Pour build les images docker :
+
+```sh
+npm run build
+```
+
+Ensuite lancer le docker-compose de production :
+
+```sh
+docker-compose -f docker-compose-prod.yml up -d
+```
+
+Aller sur le navigateur :
+
+__http://localhost:80__
