@@ -1,14 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Doctor } from '../../models/Doctors';
-import { Patient } from '../../models/Patients';
-import { Treatment } from '../../models/Treatment';
+
+type TableColumn<T> = {
+  field: string;
+  value: (item: T) => string | number | undefined;
+  link?: (item: T) => string;
+};
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent<T> {
   @Output() add = new EventEmitter();
   @Output() edit = new EventEmitter();
   @Output() remove = new EventEmitter();
@@ -19,12 +22,8 @@ export class TableComponent {
   @Input() canEdit = true;
   @Input() canSeeDetails = true;
   @Input() actionLabel = 'Add';
-  @Input() items: (Patient | Doctor | Treatment)[] = [];
-  @Input() columns: {
-    field: string;
-    value: (item: Patient & Doctor & Treatment) => string | number | undefined;
-    link?: (item: Patient & Doctor & Treatment) => string;
-  }[] = [];
+  @Input() items: T[] = [];
+  @Input() columns: TableColumn<T>[] = [];
 
   displayedColumns: string[] = [];
 
@@ -39,15 +38,17 @@ export class TableComponent {
     this.add.emit();
   }
 
-  onEdit(item: Patient | Doctor | Treatment) {
+  onEdit(item: T) {
     this.edit.emit(item);
   }
 
-  onRemove(item: Patient | Doctor | Treatment) {
+  onRemove(item: T) {
     this.remove.emit(item);
   }
 
-  onDetails(item: Patient | Doctor | Treatment) {
+  onDetails(item: T) {
     this.details.emit(item);
   }
 }
+
+export type { TableColumn };

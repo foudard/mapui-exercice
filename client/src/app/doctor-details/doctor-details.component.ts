@@ -5,6 +5,7 @@ import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../models/Doctors';
 import { Patient } from '../../models/Patients';
 import { Treatment } from '../../models/Treatment';
+import { TableColumn } from '../table/table.component';
 
 @Component({
   selector: 'app-doctor-details',
@@ -18,15 +19,15 @@ export class DoctorDetailsComponent {
   treatments: Treatment[] = [];
   patients: Patient[] = [];
 
-  treatmentsColumns = [
-    { field: 'Name', value: (item: Treatment) => item.name },
-    { field: 'Start', value: (item: Treatment) => new Date(item.start).toLocaleDateString() },
-    { field: 'End', value: (item: Treatment) => new Date(item.end).toLocaleDateString() },
-    { field: 'Code', value: (item: Treatment) => item.code },
+  treatmentsColumns: TableColumn<Treatment>[] = [
+    { field: 'Name', value: (item) => item.name },
+    { field: 'Start', value: (item) => new Date(item.start).toLocaleDateString() },
+    { field: 'End', value: (item) => new Date(item.end).toLocaleDateString() },
+    { field: 'Code', value: (item) => item.code },
     {
       field: 'Patient',
-      value: (item: Treatment) => `${item.patient?.firstName} ${item.patient?.lastName}`,
-      link: (item: Treatment) => `/patients/details?patientId=${item.patient?._id}`
+      value: (item) => `${item.patient?.firstName} ${item.patient?.lastName}`,
+      link: (item) => `/patients/details?patientId=${item.patient?._id}`
     }
   ];
 

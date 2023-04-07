@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../models/Doctors';
+import { TableColumn } from '../table/table.component';
 
 @Component({
   selector: 'app-doctor-list',
@@ -12,10 +13,10 @@ import { Doctor } from '../../models/Doctors';
 export class DoctorListComponent {
   doctorSub: Subscription;
   doctors: Doctor[] = [];
-  columns = [
-    { field: 'Last name', value: (item: Doctor) => item.lastName },
-    { field: 'First name', value: (item: Doctor) => item.firstName },
-    { field: 'Speciality', value: (item: Doctor) => item.speciality }
+  columns: TableColumn<Doctor>[] = [
+    { field: 'Last name', value: (item) => item.lastName },
+    { field: 'First name', value: (item) => item.firstName },
+    { field: 'Speciality', value: (item) => item.speciality }
   ];
 
   constructor(private doctorService: DoctorService, private router: Router) {
